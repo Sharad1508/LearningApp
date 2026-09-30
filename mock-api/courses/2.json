@@ -1,0 +1,87 @@
+{
+  "id": 2,
+  "title": "Generative AI",
+  "instructor": "Sarah Williams",
+  "lessons": [
+    {
+      "id": 201,
+      "title": "What is Generative AI",
+      "completed": true
+    },
+    {
+      "id": 202,
+      "title": "History of Language Models",
+      "completed": true
+    },
+    {
+      "id": 203,
+      "title": "Tokens & Embeddings",
+      "completed": true
+    },
+    {
+      "id": 204,
+      "title": "Transformer Architecture",
+      "completed": true
+    },
+    {
+      "id": 205,
+      "title": "Prompt Engineering Basics",
+      "completed": true
+    },
+    {
+      "id": 206,
+      "title": "Advanced Prompting",
+      "completed": true
+    },
+    {
+      "id": 207,
+      "title": "Retrieval-Augmented Generation",
+      "completed": false
+    },
+    {
+      "id": 208,
+      "title": "Vector Databases",
+      "completed": false
+    },
+    {
+      "id": 209,
+      "title": "Fine-tuning",
+      "completed": false
+    },
+    {
+      "id": 210,
+      "title": "Evaluation",
+      "completed": false
+    },
+    {
+      "id": 211,
+      "title": "Tool Use & Agents",
+      "completed": false
+    },
+    {
+      "id": 212,
+      "title": "Image Generation",
+      "completed": false
+    },
+    {
+      "id": 213,
+      "title": "Safety & Alignment",
+      "completed": false
+    },
+    {
+      "id": 214,
+      "title": "Cost & Latency",
+      "completed": false
+    },
+    {
+      "id": 215,
+      "title": "Deploying LLM Apps",
+      "completed": false
+    },
+    {
+      "id": 216,
+      "title": "Final Project",
+      "completed": false
+    }
+  ]
+}
