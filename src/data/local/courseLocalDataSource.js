@@ -5,7 +5,7 @@ const KEYS = {
 };
 
 export function createCourseLocalDataSource(store, now = Date.now) {
-  // Serializes read-modify-write updates so rapid taps can't overwrite each other.
+
   let writeQueue = Promise.resolve();
   const enqueue = task => {
     const result = writeQueue.then(task);

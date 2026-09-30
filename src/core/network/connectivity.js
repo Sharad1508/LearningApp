@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import NetInfo from '@react-native-community/netinfo';
 
-// isInternetReachable is null until NetInfo has probed, so only an explicit false counts as offline.
+
 const toOnline = state =>
   state.isConnected !== false && state.isInternetReachable !== false;
 

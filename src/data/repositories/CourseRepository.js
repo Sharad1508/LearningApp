@@ -27,8 +27,7 @@ export function createCourseRepository({ api, local, now = Date.now }) {
     };
   }
 
-  // Remote first; on failure fall back to the last saved copy. An expired
-  // session is never masked by cached data.
+
   async function fetchWithFallback({ fetchRemote, saveLocal, readLocal }) {
     try {
       const data = await fetchRemote();
@@ -84,8 +83,6 @@ export function createCourseRepository({ api, local, now = Date.now }) {
       return { details: await withLocalCompletions(data), ...meta };
     },
 
-    // Completions are stored locally and merged over server state; a
-    // production build would also queue them for sync to the backend.
     async completeLesson(courseId, lessonId) {
       await local.addCompletion(courseId, lessonId);
       const cached = await local.getCourseDetails(courseId);

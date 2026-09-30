@@ -1,5 +1,47 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native';
-import { colors, spacing } from './theme';
+import {
+  ActivityIndicator,
+  Animated,
+  Pressable,
+  StyleSheet,
+  Text,
+} from 'react-native';
+import { usePressScale } from './animations';
+import { colors, radius, shadows, spacing, typography } from './theme';
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
+const VARIANTS = {
+  primary: {
+    container: { backgroundColor: colors.primary, ...shadows.primary },
+    label: { color: colors.onPrimary },
+    spinner: colors.onPrimary,
+  },
+  secondary: {
+    container: { backgroundColor: colors.primarySoft },
+    label: { color: colors.primary },
+    spinner: colors.primary,
+  },
+  outline: {
+    container: {
+      backgroundColor: colors.surface,
+      borderWidth: 1.5,
+      borderColor: colors.primaryMuted,
+    },
+    label: { color: colors.primary },
+    spinner: colors.primary,
+  },
+};
+
+const SIZES = {
+  md: {
+    container: { minHeight: 52, paddingHorizontal: spacing.xl },
+    label: { fontSize: 16 },
+  },
+  sm: {
+    container: { minHeight: 36, paddingHorizontal: spacing.md },
+    label: { fontSize: 13 },
+  },
+};
 
 export function Button({
   title,
@@ -7,53 +49,52 @@ export function Button({
   loading,
   disabled,
   variant = 'primary',
+  size = 'md',
+  style,
   testID,
 }) {
   const isDisabled = disabled || loading;
-  const isPrimary = variant === 'primary';
+  const look = VARIANTS[variant] ?? VARIANTS.primary;
+  const dims = SIZES[size] ?? SIZES.md;
+  const { scale, onPressIn, onPressOut } = usePressScale({ to: 0.96 });
+
   return (
-    <Pressable
+    <AnimatedPressable
       testID={testID}
       accessibilityRole="button"
+      accessibilityLabel={title}
       accessibilityState={{ disabled: isDisabled, busy: loading }}
       onPress={onPress}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
       disabled={isDisabled}
-      style={({ pressed }) => [
+      hitSlop={size === 'sm' ? spacing.xs : 0}
+      style={[
         styles.base,
-        isPrimary ? styles.primary : styles.secondary,
-        isDisabled && styles.disabled,
-        pressed && styles.pressed,
+        dims.container,
+        look.container,
+        isDisabled && !loading && styles.disabled,
+        { transform: [{ scale }] },
+        style,
       ]}
     >
       {loading ? (
-        <ActivityIndicator
-          color={isPrimary ? colors.surface : colors.primary}
-        />
+        <ActivityIndicator size="small" color={look.spinner} />
       ) : (
-        <Text style={[styles.label, !isPrimary && styles.secondaryLabel]}>
+        <Text style={[styles.label, dims.label, look.label]} numberOfLines={1}>
           {title}
         </Text>
       )}
-    </Pressable>
+    </AnimatedPressable>
   );
 }
 
 const styles = StyleSheet.create({
   base: {
-    minHeight: 44,
-    paddingHorizontal: spacing.lg,
-    borderRadius: 8,
+    borderRadius: radius.pill,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  primary: { backgroundColor: colors.primary },
-  secondary: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.primary,
-  },
-  disabled: { opacity: 0.5 },
-  pressed: { opacity: 0.8 },
-  label: { color: colors.surface, fontWeight: '600', fontSize: 15 },
-  secondaryLabel: { color: colors.primary },
+  disabled: { opacity: 0.45 },
+  label: { ...typography.label, letterSpacing: 0.1 },
 });

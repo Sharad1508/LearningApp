@@ -16,7 +16,7 @@ export function createDependencies() {
     scenario: config.mockScenario,
     isOnline,
   });
-  // Login is always mocked; courses can come from a real HTTP endpoint.
+
   const courseClient = config.apiBaseUrl
     ? createHttpClient({
         baseUrl: config.apiBaseUrl,

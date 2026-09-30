@@ -11,6 +11,17 @@ import { LogoutButton } from '../features/auth/LogoutButton';
 import { CourseDetailsScreen } from '../features/courseDetails/CourseDetailsScreen';
 import { DashboardScreen } from '../features/courses/DashboardScreen';
 import { LoadingView } from '../ui/StateViews';
+import { colors } from '../ui/theme';
+
+const screenOptions = {
+  headerShadowVisible: false,
+  headerStyle: { backgroundColor: colors.background },
+  headerTintColor: colors.primary,
+  headerTitleStyle: { color: colors.text, fontWeight: '700', fontSize: 17 },
+  headerBackButtonDisplayMode: 'minimal',
+  contentStyle: { backgroundColor: colors.background },
+  animation: 'slide_from_right',
+};
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +38,7 @@ export function RootNavigator() {
   }
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={screenOptions}>
       {user ? (
         <>
           <Stack.Screen
@@ -45,7 +56,7 @@ export function RootNavigator() {
         <Stack.Screen
           name="Login"
           component={LoginScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, animation: 'fade' }}
         />
       )}
     </Stack.Navigator>

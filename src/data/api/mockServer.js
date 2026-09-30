@@ -9,8 +9,7 @@ const FIXTURES = {
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-// Stands in for a backend: same get(path) contract as httpClient, and it
-// fails with a network error when the device is offline.
+
 export function createMockServer({ latencyMs, isOnline, scenario = 'normal' }) {
   async function simulateRequest() {
     await delay(latencyMs);
